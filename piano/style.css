@@ -38,8 +38,13 @@
 			vertical-align: top;
 		}
 		
-		#cpy
+		#cpy1
 		{
 			color: #777777;
 			margin-top: 10px;
+		}
+		
+		#cpy2
+		{
+			color: #777777;
 		}

@@ -1,0 +1,8 @@
+60
+d2 8 d2 8 a2 8 a2 8 h2 8 h2 8 a2 4
+g2 8 g2 8 fis2 8 fis2 8 e2 8 e2 8 d2 4
+a2 8 a2 8 g2 8 g2 8 fis2 8 fis2 8 e2 4
+a2 8 a2 8 g2 8 g2 8 fis2 8 fis2 8 e2 4
+d2 8 d2 8 a2 8 a2 8 h2 8 h2 8 a2 4
+g2 8 g2 8 fis2 8 fis2 8 e2 8 e2 8 d2 4 
+0

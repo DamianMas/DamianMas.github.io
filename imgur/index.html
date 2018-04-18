@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	 <title>Imgur SlidShow</title>
+	<meta name="description" content="Best Random Images" />
+	<meta name="keywords" content="Imgur,random images, Imgur images" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<style>
+		body
+		{
+			background-color: #222222;
+			font-size: 24px;
+			color: lightblue;
+			text-align: center;
+		}
+		#container
+		{
+			width: 1000px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		#title
+		{	
+			background-color: #111111;
+		}
+		
+		#picture
+		{
+			height: 100%;
+		}
+		#Img
+		{
+			cursor: pointer;
+		}
+
+		#instruction
+		{
+			margin-top:-20px;
+			background-color: #111111;
+		}
+		#buttons
+		{
+			margin-top:-25px;
+			padding-bottom: 15px;
+		}
+		
+		#play
+		{
+			color: green;
+			font-size: 30px;
+			margin-right: 10px;
+		}
+
+		.but:hover
+		{
+			color: lightgrey;
+			cursor: pointer;
+		}
+		
+		#footer
+		{
+			clear:both;
+		}
+		#cpy
+		{
+			color: #777777;
+			margin-top:-20px;
+		}
+		
+		.hidesearching
+		{
+			display: none;
+		}
+		
+		#imagespeed
+		{
+			width: 100px;
+		}
+		
+	</style>
+	
+	<script src="NoSleep.js"></script>
+	
+	<script type="text/javascript"> // source : https://github.com/richtr/NoSleep.js
+		var noSleep = new NoSleep();
+		var wakeLockEnabled = false;
+		var imageviewspeed = 4000;
+		var searchspeed = 1800;
+		var slide = 0;
+		var nextslide = 1;
+		var URL = [];
+		var back;
+		var goodimage;
+		var timer1;
+		var timer2;
+		var ua;
+		
+		function goBack() // Going to previous URL
+		{
+			if((ua.Android)||(ua.iOS))
+				{document.getElementById("play").style.fontSize = "100px";}
+			else
+				{document.getElementById("play").style.fontSize = "30px";}
+				
+			document.getElementById("play").innerHTML = "&#9658;";
+			document.getElementById("play").style.color = "green";
+			document.getElementById("Img").src = back;
+			clearTimeout(timer1);
+			clearTimeout(timer2);
+			slide = 0;
+		}
+		
+		function TurnONOFF() // enable/disable slideshow
+		{	
+			if (slide == 1)
+			{
+				if((ua.Android)||(ua.iOS)) 
+					{document.getElementById("play").style.fontSize = "100px"; }
+				else 
+					{document.getElementById("play").style.fontSize = "30px"; }
+				
+				document.getElementById("play").innerHTML = "&#9658;";
+				document.getElementById("play").style.color = "green";
+				clearTimeout(timer1);
+				clearTimeout(timer2);
+				slide = 0;
+			}
+			else if(slide == 0)
+			{
+				if((ua.Android)||(ua.iOS)) 
+					document.getElementById("play").style.fontSize = "69px"; 
+				else 
+					document.getElementById("play").style.fontSize = "21px";
+				
+				document.getElementById("play").innerHTML = "&#9612;&#9612;";
+				document.getElementById("play").style.color = "red";
+				slide = 1;
+				nextslide = 1;
+				getImage();
+			}
+		}
+		
+		function PageRemoved() // searching again if image is too small or has been removed (not exist) otherways preparing next image
+		{
+			var checkbox1;
+			
+			if(((document.getElementById("imgCheckbox1").width <= 161)||(document.getElementById("imgCheckbox1").height <= 81))&&
+			((document.getElementById("imgCheckbox2").width <= 161)||(document.getElementById("imgCheckbox2").height <= 81))&&
+			((document.getElementById("imgCheckbox3").width <= 161)||(document.getElementById("imgCheckbox3").height <= 81))&&
+			((document.getElementById("imgCheckbox4").width <= 161)||(document.getElementById("imgCheckbox4").height <= 81))&&
+			((document.getElementById("imgCheckbox5").width <= 161)||(document.getElementById("imgCheckbox5").height <= 81))&&
+			((document.getElementById("imgCheckbox6").width <= 161)||(document.getElementById("imgCheckbox6").height <= 81))&&
+			((document.getElementById("imgCheckbox7").width <= 161)||(document.getElementById("imgCheckbox7").height <= 81))&&
+			((document.getElementById("imgCheckbox8").width <= 161)||(document.getElementById("imgCheckbox8").height <= 81))&&
+			((document.getElementById("imgCheckbox9").width <= 161)||(document.getElementById("imgCheckbox9").height <= 81))&&
+			((document.getElementById("imgCheckbox10").width <= 161)||(document.getElementById("imgCheckbox10").height <= 81)))
+			{
+				slide = 0;
+				getImage();
+			}
+			else
+			{
+				for(var k=1;k<=10;k++)
+				{
+					checkbox1 =  "imgCheckbox" + k;
+					if((document.getElementById(checkbox1).width > 161)&&(document.getElementById(checkbox1).height > 81))
+					{
+						goodimage = k;
+					}
+				}
+			}
+		}
+		
+		function randomURL() // makes random part of URL
+		{
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+			for(var i=0; i < 5; i++ )
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+			return text;
+		}
+		
+		function getImage() // showing image from URL
+		{
+			var checkbox2;
+			var number = randomURL();
+			
+			slide = 1;
+			
+			if(nextslide == 1)
+			{
+				imageviewspeed = (document.getElementById("imagespeed").value)*1000;
+				timer2 = setTimeout("setImage()",imageviewspeed);
+				nextslide = 0;
+			}
+			for(var j=1;j<=10;j++)
+			{
+				checkbox2 = "imgCheckbox" + j;
+				number = randomURL();
+				URL[j-1] = "http://i.imgur.com/" + number + ".jpg";
+				document.getElementById(checkbox2).src = URL[j-1];
+			}
+			timer1 = setTimeout("PageRemoved()",searchspeed);
+		}
+		
+		function setImage() // Changing Image and saving last picture to "back"
+		{
+			back = document.getElementById("Img").src;
+			switch(goodimage)
+			{
+				case 1: { document.getElementById("Img").src = URL[0]; break;}
+				case 2: { document.getElementById("Img").src = URL[1]; break;}
+				case 3: { document.getElementById("Img").src = URL[2]; break;}
+				case 4: { document.getElementById("Img").src = URL[3]; break;}
+				case 5: { document.getElementById("Img").src = URL[4]; break;}
+				case 6: { document.getElementById("Img").src = URL[5]; break;}
+				case 7: { document.getElementById("Img").src = URL[6]; break;}
+				case 8: { document.getElementById("Img").src = URL[7]; break;}
+				case 9: { document.getElementById("Img").src = URL[8]; break;}
+				case 10: { document.getElementById("Img").src = URL[9]; break;}
+			}
+			nextslide = 1;
+			getImage();
+		}
+		
+		function KeepScreenON() // Keeping screen turned ON/OFF on mobile devices
+		{
+			{
+				if (!wakeLockEnabled) 
+				{
+					noSleep.enable(); // keep the screen on!
+					wakeLockEnabled = true;
+					document.getElementById("screen").style.color = "yellow";
+				}
+				else if(wakeLockEnabled == true)
+				{
+					noSleep.disable(); // let the screen turn off.
+					wakeLockEnabled = false;
+					document.getElementById("screen").style.color = "lightblue";
+				}
+			}
+		}
+		
+		function checkDevice() // Changing style if device is mobile phone
+		{
+			ua = {
+			Android: /Android/ig.test(navigator.userAgent),
+			iOS: /AppleWebKit/.test(navigator.userAgent) && /Mobile\/\w+/.test(navigator.userAgent)
+			};
+			 
+			if ((ua.Android)||(ua.iOS))
+			{
+					var mainwidth = window.screen.availWidth;
+					var mainheight = window.screen.availHeight;
+					
+					document.getElementById("bd").style.width = mainwidth + "px";
+					document.getElementById("bd").style.height = mainheight + "px";
+					
+					document.getElementById("Img").style.minWidth = "100%";
+					
+					document.getElementById("play").style.fontSize = "100px";
+					document.getElementById("play").style.marginRight = "30px";
+					
+					document.getElementById("imagespeed").style.fontSize = "50px";
+					document.getElementById("imagespeed").style.width = "200px";
+					document.getElementById("imagespeed").style.marginLeft = "0px";
+					document.getElementById("imagespeed").style.marginRight = "0px";
+					
+					document.getElementById("bck").style.fontSize = "100px";
+					document.getElementById("bck").style.marginLeft = "30px";
+					
+					document.getElementById("screen").style.fontSize = "100px";
+					document.getElementById("screen").style.marginLeft = "50px";
+					document.getElementById("screen").style.display = "inline";
+					
+					document.getElementById("sf1").style.fontSize = "40px";
+					document.getElementById("sf1").style.marginRight = "5px";
+					
+					document.getElementById("sf2").style.fontSize = "40px";
+					document.getElementById("sf2").style.marginLeft = "5px";
+					
+					
+			}
+		}
+  
+	</script>
+	
+</head>
+
+
+<body id="bd"onload="checkDevice()" >
+
+<div id="container" >
+
+<div id="title">
+	<h1>Imgur SlideShow</h1>
+</div>
+
+<div id="buttons" >
+	<span id="play" title="Play/Pause" class="but" onclick="TurnONOFF()">&#9658;</span>
+	<a id="sf1" style="margin-right: -10px;" >&#10113;</a>
+	<input id="imagespeed" type="range"  value="4" min="2" max="8"></input>
+	<a id="sf2" style="margin-left: -10px;" >&#10119;</a>
+	<span id="bck" title="Back" class="but"  onclick="goBack()" style="margin-left: 10px; font-size: 35px;" >&#8634;</span>
+	<span id="screen" class="but" onclick="KeepScreenON()"style=" display: none; margin-left: 10px; font-size: 30px;"  >&#9728;</span>
+</div>
+
+	<div id="picture" >
+		<img id="Img" onclick="TurnONOFF()" style=" max-width: 100%; " src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" />
+	</div>
+
+
+
+	<div id="instruction">
+		<h4>Click Start button or Image to start/stop SlideShow! Have Fun :)</h4>
+	</div>
+
+	<div id="footer">
+		<h6 id="cpy">Random images generator! &copy; All rights reserved</h6>
+	</div>
+</div>
+
+<div class="hidesearching" ><img id="imgCheckbox1" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox2" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox3" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox4" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox5" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox6" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox7" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox8" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox9" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox10" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+
+</body>
+
+</html>

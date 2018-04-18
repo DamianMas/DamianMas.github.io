@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	 <title>Piano Learning</title>
+	<meta name="description" content="Easy Piano Learning" />
+	<meta name="keywords" content="piano, learning" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	<link rel="stylesheet" href="style.css">
+	<script src="scripts.js"></script>
+	
+</head>
+
+<body id ="bd">
+	<div id="container" >
+	
+	<div id="title">
+		<h1>Easy Piano Learning</h1>
+	</div>
+	
+		
+	<div id="menu" >
+			<a>Tempo : </a>
+		<input id="tempo" oninput="updateTempoText()" onchange="updateTempoText()" type="range"  value="60" step="5" min="30" max="240"></input>
+		<a id="tempotext">60</a>
+		<button onclick = "Tutorial()">Nauka</button>
+		<button onclick = "Melody()">Melodia</button>
+		
+		<select id="musicList" onchange='loadURLFromList()'>
+			<option >-</option>
+			<option value="https://mineten.github.io/piano/Music/Still.txt">Dr. Dre - Still</option>
+			<option value="https://mineten.github.io/piano/Music/Gothic.txt">Gothic</option>
+			<option value="https://mineten.github.io/piano/Music/SaxGuy.txt">Epic Sax Guy</option>
+			<option value="https://mineten.github.io/piano/Music/KurkiTrzy.txt">Kurki</option>
+			<option value="https://mineten.github.io/piano/Music/Yee.txt">Yee</option>
+			<option value="https://mineten.github.io/piano/Music/Piraci.txt">Piraci</option>
+		</select>
+		
+		<input id="FileFromDevice" type='file' accept='text/plain' onchange='loadFileFromDevice(event)'></input>
+		
+	</div>
+		
+	
+		<div id="Keyboard" onkeypress="KeyCode(event)">
+		
+			<img id="i90"  onclick="play(90)" class="white"  src="images/whiteL.png" /><audio id="90" src="audio/Piano/c1.mp3" ></audio><img id ="i83" onclick="play(83)" class="black" src="images/black.png" /><audio id="83" src="audio/Piano/cis1.mp3" ></audio><img  id = "i88"onclick="play(88)" class="white" src="images/whiteM.png" /><audio id="88" src="audio/Piano/d1.mp3" ></audio><img id = "i68" onclick="play(68)" class="black" src="images/black.png" /><audio id="68" src="audio/Piano/dis1.mp3" ></audio><img id= "i67" onclick="play(67)" class="white" src="images/whiteR.png" /><audio id="67" src="audio/Piano/e1.mp3" ></audio><img id = "i86" onclick="play(86)" class="white" src="images/whiteL.png" /><audio id="86" src="audio/Piano/f1.mp3" ></audio><img id = "i71" onclick="play(71)" class="black" src="images/black.png" /><audio id="71" src="audio/Piano/fis1.mp3" ></audio><img id = "i66" onclick="play(66)" class="white" src="images/whiteM.png" /><audio id="66" src="audio/Piano/g1.mp3" ></audio><img id = "i72" onclick="play(72)" class="black" src="images/black.png" /><audio id="72" src="audio/Piano/gis1.mp3" ></audio><img id = "i78" onclick="play(78)" class="white" src="images/whiteM.png" /><audio id="78" src="audio/Piano/a1.mp3" ></audio><img id = "i74" onclick="play(74)" class="black" src="images/black.png" /><audio id="74" src="audio/Piano/ais1.mp3" ></audio><img id = "i77" onclick="play(77)" class="white" src="images/whiteR.png" /><audio id="77" src="audio/Piano/h1.mp3" ></audio><img id="i84"  onclick="play(84)" class="white"  src="images/whiteL.png" /><audio id="84" src="audio/Piano/c2.mp3" ></audio><img id ="i54" onclick="play(54)" class="black" src="images/black.png" /><audio id="54" src="audio/Piano/cis2.mp3" ></audio><img  id = "i89"onclick="play(89)" class="white" src="images/whiteM.png" /><audio id="89" src="audio/Piano/d2.mp3" ></audio><img id = "i55" onclick="play(55)" class="black" src="images/black.png" /><audio id="55" src="audio/Piano/dis2.mp3" ></audio><img id= "i85" onclick="play(85)" class="white" src="images/whiteR.png" /><audio id="85" src="audio/Piano/e2.mp3" ></audio><img id = "i73" onclick="play(73)" class="white" src="images/whiteL.png" /><audio id="73" src="audio/Piano/f2.mp3" ></audio><img id = "i57" onclick="play(57)" class="black" src="images/black.png" /><audio id="57" src="audio/Piano/fis2.mp3" ></audio><img id = "i79" onclick="play(79)" class="white" src="images/whiteM.png" /><audio id="79" src="audio/Piano/g2.mp3" ></audio><img id = "i48" onclick="play(48)" class="black" src="images/black.png" /><audio id="48" src="audio/Piano/gis2.mp3" ></audio><img id = "i80" onclick="play(80)" class="white" src="images/whiteM.png" /><audio id="80" src="audio/Piano/a2.mp3" ></audio><img id = "i189" onclick="play(189)" class="black" src="images/black.png" /><audio id="189" src="audio/Piano/ais2.mp3" ></audio><img id = "i219" onclick="play(219)" class="white" src="images/whiteR.png" /><audio id="219" src="audio/Piano/h2.mp3" ></audio><img id = "i221" onclick="play(221)" class="white" src="images/white.png" /><audio id="221" src="audio/Piano/c3.mp3" ></audio>
+		
+		
+		</div>
+		
+		<div id="footer">
+			<h6 id="cpy">Prośby o dodanie nowych utworu proszę wysyłać na e-mail: damian.maslowski@interia.pl</h6>
+		</div>
+		
+		
+	</div>
+
+</body>
+
+</html>

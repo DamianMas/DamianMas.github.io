@@ -92,7 +92,9 @@
 		var slide = 0;
 		var nextslide = 1;
 		var URL = [];
-		var back;
+		var back = [];
+		var iterator = 0;
+		var baack = 1;
 		var goodimage;
 		var timer1;
 		var timer2;
@@ -100,6 +102,7 @@
 		
 		function goBack() // Going to previous URL
 		{
+			if(iterator - baack > 0){
 			if((ua.Android)||(ua.iOS))
 				{document.getElementById("play").style.fontSize = "100px";}
 			else
@@ -107,10 +110,12 @@
 				
 			document.getElementById("play").innerHTML = "&#9658;";
 			document.getElementById("play").style.color = "green";
-			document.getElementById("Img").src = back;
+			document.getElementById("Img").src = back[iterator - baack];
+			baack++;
 			clearTimeout(timer1);
 			clearTimeout(timer2);
 			slide = 0;
+			}
 		}
 		
 		function TurnONOFF() // enable/disable slideshow
@@ -200,20 +205,12 @@
 		
 		function setImage() // Changing Image and saving last picture to "back"
 		{
-			back = document.getElementById("Img").src;
-			switch(goodimage)
-			{
-				case 1: { document.getElementById("Img").src = URL[0]; break;}
-				case 2: { document.getElementById("Img").src = URL[1]; break;}
-				case 3: { document.getElementById("Img").src = URL[2]; break;}
-				case 4: { document.getElementById("Img").src = URL[3]; break;}
-				case 5: { document.getElementById("Img").src = URL[4]; break;}
-				case 6: { document.getElementById("Img").src = URL[5]; break;}
-				case 7: { document.getElementById("Img").src = URL[6]; break;}
-				case 8: { document.getElementById("Img").src = URL[7]; break;}
-				case 9: { document.getElementById("Img").src = URL[8]; break;}
-				case 10: { document.getElementById("Img").src = URL[9]; break;}
-			}
+			baack = 1;
+			back[iterator] = document.getElementById("Img").src;
+			iterator++;
+			
+			document.getElementById("Img").src = URL[goodimage-1];
+			
 			nextslide = 1;
 			getImage();
 		}

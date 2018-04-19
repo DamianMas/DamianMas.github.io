@@ -147,30 +147,20 @@
 		{
 			var checkbox1;
 			
-			if(((document.getElementById("imgCheckbox1").width <= 161)||(document.getElementById("imgCheckbox1").height <= 81))&&
-			((document.getElementById("imgCheckbox2").width <= 161)||(document.getElementById("imgCheckbox2").height <= 81))&&
-			((document.getElementById("imgCheckbox3").width <= 161)||(document.getElementById("imgCheckbox3").height <= 81))&&
-			((document.getElementById("imgCheckbox4").width <= 161)||(document.getElementById("imgCheckbox4").height <= 81))&&
-			((document.getElementById("imgCheckbox5").width <= 161)||(document.getElementById("imgCheckbox5").height <= 81))&&
-			((document.getElementById("imgCheckbox6").width <= 161)||(document.getElementById("imgCheckbox6").height <= 81))&&
-			((document.getElementById("imgCheckbox7").width <= 161)||(document.getElementById("imgCheckbox7").height <= 81))&&
-			((document.getElementById("imgCheckbox8").width <= 161)||(document.getElementById("imgCheckbox8").height <= 81))&&
-			((document.getElementById("imgCheckbox9").width <= 161)||(document.getElementById("imgCheckbox9").height <= 81))&&
-			((document.getElementById("imgCheckbox10").width <= 161)||(document.getElementById("imgCheckbox10").height <= 81)))
+			for (var i  = 1; i<11 ; ++i)
 			{
-				slide = 0;
-				getImage();
-			}
-			else
-			{
-				for(var k=1;k<=10;k++)
+				if((document.getElementById("imgCheckbox" + i.toString()).width <= 161)||(document.getElementById("imgCheckbox" + i.toString()).height <= 81))
 				{
-					checkbox1 =  "imgCheckbox" + k;
-					if((document.getElementById(checkbox1).width > 161)&&(document.getElementById(checkbox1).height > 81))
-					{
-						goodimage = k;
-					}
+					slide = 0;
+				} else {
+					slide = 1;
+					goodimage = i;
+					break;
 				}
+				
+				if (i == 10)
+					getImage();
+				
 			}
 		}
 		

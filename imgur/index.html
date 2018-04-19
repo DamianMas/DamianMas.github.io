@@ -88,14 +88,13 @@
 		var noSleep = new NoSleep();
 		var wakeLockEnabled = false;
 		var imageviewspeed = 4000;
-		var searchspeed = 1800;
+		var searchspeed = 650;
 		var slide = 0;
 		var nextslide = 1;
 		var URL = [];
-		var back = [];
 		var iterator = 0;
-		var baack = 1;
 		var goodimage;
+		var baack = 1;
 		var timer1;
 		var timer2;
 		var ua;
@@ -110,7 +109,7 @@
 				
 			document.getElementById("play").innerHTML = "&#9658;";
 			document.getElementById("play").style.color = "green";
-			document.getElementById("Img").src = back[iterator - baack];
+			document.getElementById("Img").src = URL[iterator - baack];
 			baack++;
 			clearTimeout(timer1);
 			clearTimeout(timer2);
@@ -148,25 +147,23 @@
 			}
 		}
 		
-		function PageRemoved() // searching again if image is too small or has been removed (not exist) otherways preparing next image
+		function PageRemoved() // searching again if image is too small or has been removed (not exist)
 		{
-			var checkbox1;
+			for(var i = 0 ; i < 2; ++i){
 			
-			for (var i  = 1; i<11 ; ++i)
-			{
-				if((document.getElementById("imgCheckbox" + i.toString()).width <= 161)||(document.getElementById("imgCheckbox" + i.toString()).height <= 81))
+				if((document.getElementById("imgCheckbox" + i).width < 150)||(document.getElementById("imgCheckbox" + i).height < 150)||
+				((document.getElementById("imgCheckbox" + i).width == 298)&&(document.getElementById("imgCheckbox" + i).height == 256)))
 				{
 					slide = 0;
+					if(i == 1)
+						getImage();
 				} else {
 					slide = 1;
 					goodimage = i;
 					break;
 				}
-				
-				if (i == 10)
-					getImage();
-				
 			}
+
 		}
 		
 		function randomURL() // makes random part of URL
@@ -182,8 +179,6 @@
 		
 		function getImage() // showing image from URL
 		{
-			var checkbox2;
-			var number = randomURL();
 			
 			slide = 1;
 			
@@ -193,23 +188,20 @@
 				timer2 = setTimeout("setImage()",imageviewspeed);
 				nextslide = 0;
 			}
-			for(var j=1;j<=10;j++)
-			{
-				checkbox2 = "imgCheckbox" + j;
-				number = randomURL();
-				URL[j-1] = "http://i.imgur.com/" + number + ".jpg";
-				document.getElementById(checkbox2).src = URL[j-1];
-			}
+			
+			document.getElementById("imgCheckbox0").src = "http://i.imgur.com/" + randomURL() + ".jpg";
+			document.getElementById("imgCheckbox1").src = "http://i.imgur.com/" + randomURL() + ".jpg";
 			timer1 = setTimeout("PageRemoved()",searchspeed);
+			
 		}
 		
 		function setImage() // Changing Image and saving last picture to "back"
 		{
 			baack = 1;
-			back[iterator] = document.getElementById("Img").src;
+			URL[iterator] = document.getElementById("Img").src;
 			iterator++;
 			
-			document.getElementById("Img").src = URL[goodimage-1];
+			document.getElementById("Img").src = document.getElementById("imgCheckbox" + goodimage).src;
 			
 			nextslide = 1;
 			getImage();
@@ -271,7 +263,6 @@
 					document.getElementById("sf2").style.fontSize = "40px";
 					document.getElementById("sf2").style.marginLeft = "5px";
 					
-					
 			}
 		}
   
@@ -312,17 +303,8 @@
 	</div>
 </div>
 
+<div class="hidesearching" ><img id="imgCheckbox0" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
 <div class="hidesearching" ><img id="imgCheckbox1" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox2" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox3" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox4" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox5" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox6" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox7" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox8" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox9" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-<div class="hidesearching" ><img id="imgCheckbox10" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
-
 </body>
 
 </html>

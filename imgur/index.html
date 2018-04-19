@@ -149,13 +149,13 @@
 		
 		function PageRemoved() // searching again if image is too small or has been removed (not exist)
 		{
-			for(var i = 0 ; i < 2; ++i){
+			for(var i = 0 ; i < 3; ++i){
 			
 				if((document.getElementById("imgCheckbox" + i).width < 150)||(document.getElementById("imgCheckbox" + i).height < 150)||
 				((document.getElementById("imgCheckbox" + i).width == 298)&&(document.getElementById("imgCheckbox" + i).height == 256)))
 				{
 					slide = 0;
-					if(i == 1)
+					if(i == 2)
 						getImage();
 				} else {
 					slide = 1;
@@ -191,6 +191,7 @@
 			
 			document.getElementById("imgCheckbox0").src = "http://i.imgur.com/" + randomURL() + ".jpg";
 			document.getElementById("imgCheckbox1").src = "http://i.imgur.com/" + randomURL() + ".jpg";
+			document.getElementById("imgCheckbox2").src = "http://i.imgur.com/" + randomURL() + ".jpg";
 			timer1 = setTimeout("PageRemoved()",searchspeed);
 			
 		}
@@ -305,6 +306,7 @@
 
 <div class="hidesearching" ><img id="imgCheckbox0" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
 <div class="hidesearching" ><img id="imgCheckbox1" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
+<div class="hidesearching" ><img id="imgCheckbox2" src="http://pm1.narvii.com/6404/3a2d8bdbe8452d7f8507ab2d41173d4ef4a91b9e_hq.jpg" /></div>
 </body>
 
 </html>
